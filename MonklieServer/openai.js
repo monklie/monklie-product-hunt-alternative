@@ -32,7 +32,7 @@ genpersona: async function(req, res) {
   async function sendPersonaApicall(input) {
     console.log('Started \'sendapicall\'');
     let personaMessages = [
-      {'role': 'system', 'content': 'You are a marketing user persona generator. After you have created a persona, you can select one of the following images: "creative women","casual proffesional men","young proffesional men","casual proffesional women","happy women","young women","women just graduated","men just graduated","women working from home","women entrepeneur","men digital nomad","women calling".'}
+      {'role': 'system', 'content': 'You are a user persona generator. After you have created a persona, you can select one of the following images: "creative women","casual proffesional men","young proffesional men","casual proffesional women","happy women","young women","women just graduated","men just graduated","women working from home","women entrepeneur","men digital nomad","women calling".'}
     ];
     
     const openai = new OpenAI({
@@ -40,7 +40,7 @@ genpersona: async function(req, res) {
       apiKey: '',
     });
   
-    personaMessages.push({"role": "user", "content":  `What would a person with that role think of the following situation: '${input.problem}'.`});
+    personaMessages.push({"role": "user", "content":  `Create a perona that is a ${input.jobTitle}. What would they think of the following situation: '${input.problem}'.`});
     personaMessages.push({"role": "user", "content":  `Info about persona: ${input.hasCar ? 'has a car' : ''} ${input.hasHouse ? ', is a home owner' : ''} ${input.isOfficeWorker ? ', is an office worker': ''}.`});
     if (input.saveMoney || input.saveTime || input.saveStress) {
       personaMessages.push({"role": "user", "content":  `Persona goals are: ${input.saveMoney ? 'to save money' : ''} ${input.saveTime ? ', to save time' : ''} ${input.saveStress ? ', to have less stress': ''}.`});
@@ -70,14 +70,14 @@ genpersona: async function(req, res) {
               },
               responseToSituation: {
                 type: 'string',
-                description: 'There a 2 types of respones: 1. The situation is a painful problem 2. The situation is insignificant, it would be a nice to have but not a must.'
+                description: 'There a 2 types of respones: 1. The situation is a painful problem 2. The situation is insignificant, it would be a nice to have but not a must. \n explain why'
               },
               selectedImage: {
                 type: 'string'
               },
               personaDescription: {
                 type: 'string',
-                description: 'Painting a picture of their lifestyle and a general description of their household '
+                description: '2-3 sentences. Painting a picture of their lifestyle and a general description of their household '
               },
             },
             additionalProperties: false
@@ -96,3 +96,5 @@ genpersona: async function(req, res) {
   
     return completion.choices[0].message.content;
   }
+  
+  

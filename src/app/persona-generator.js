@@ -6,6 +6,7 @@ import { ResultView } from "./result-view";
 export function PersonaGenerator({func}) {
 
     const [problem, setProblem] = useState('');
+    const [jobTitle, setJobTitle] = useState('');
     const [hasHouse, setHasHouse] = useState(false);
     const [hasCar, setHasCar] = useState(false);
     const [isOfficeWorker, setIsOfficeWorker] = useState(false);
@@ -19,8 +20,9 @@ export function PersonaGenerator({func}) {
     const handleButtonClick = () => {
         setShowResult(false);
         (async () => {
-            const data = { problem: problem, hasHouse: hasHouse , hasCar: hasCar, isOfficeWorker: isOfficeWorker, saveTime: saveTime, saveMoney: saveMoney, saveStress: saveStress};
-            //http://localhost:1337
+            const data = { problem: problem, hasHouse: hasHouse , jobTitle: jobTitle, hasCar: hasCar, isOfficeWorker: isOfficeWorker, saveTime: saveTime, saveMoney: saveMoney, saveStress: saveStress};
+            //http://localhost:1337/
+            //https://monkliebackend-1ae4ebd48e7f.herokuapp.com
             const response = await fetch('https://monkliebackend-1ae4ebd48e7f.herokuapp.com/generatepersona', {
                 method: 'POST',
                 headers: {
@@ -48,6 +50,21 @@ export function PersonaGenerator({func}) {
         <ToggleWithText title={'Save time'} val={saveTime} setfunc={setSaveTime}/>
         <ToggleWithText title={'Save money'} val={saveMoney} setfunc={setSaveMoney}/>
         <ToggleWithText title={'Less stress'} val={saveStress} setfunc={setSaveStress}/>
+        <p style={{marginTop: 10, marginBottom: 5}}>Job Title</p>
+        <input 
+            style={{
+                fontSize: '13px', 
+                paddingLeft: '10px', 
+                borderRadius: '5px', 
+                border: '1px solid black',
+                height: '35px', 
+                width: '600px', 
+                boxSizing: 'border-box'
+            }} 
+            placeholder="Type here..."
+            value={jobTitle}
+            onChange={(e) => setJobTitle(e.target.value)}
+        />
         <p style={{marginTop: 10, marginBottom: 5}}>Define problem</p>
         <input 
             style={{

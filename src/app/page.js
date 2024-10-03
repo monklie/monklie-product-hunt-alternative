@@ -24,7 +24,7 @@ export default function Home() {
         {activeTool == 0 && 
         <div style={{display: 'flex', flexDirection: 'column', gap: 10, flex: 1, padding: 10}}>
           <ItemCard func={setTool} title={'User persona generator'} category={'marketing'}/>
-          <ItemCard/>
+          <ItemCard title={'More handy tools that can be use within the website'} category={'To be announced'}/>
         </div>}
         {activeTool == 1 &&
           <PersonaGenerator func={setTool} />
